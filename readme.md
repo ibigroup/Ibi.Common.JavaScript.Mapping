@@ -1,0 +1,1 @@
+Test JS mapping library code to use a plugable architecture.
