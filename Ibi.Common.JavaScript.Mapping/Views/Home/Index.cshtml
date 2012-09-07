@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Mapping</title>
+    
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,body,#map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="/Scripts/Mapping.Base.js"></script>
+    <script src="/Scripts/Mapping.Move.js"></script>
+    <script>
+        $mapping(function() {
+            var map = $mapping().create("map");
+            map.move.right();
+            map.move.left();
+        });
+    </script>
+    
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
