@@ -2,9 +2,6 @@
     "use strict";
 
     var
-        // A central reference to the root mappign object
-        rootMapping,
-
         // The basic map object
         map,
         
@@ -23,7 +20,10 @@
             map = null;
             
             if (typeof selector === "function") {
-                return rootMapping.ready(selector);
+                return this.ready(selector);
+            }
+            else if (typeof selector === "string") {
+                return this.create(selector);
             }
 
             return this;
@@ -61,6 +61,10 @@
             map = new google.maps.Map(document.getElementById(containerId), mapOptions);
 
             return this;
+        },
+        
+        getMap: function () {
+            return map;
         }
     };
     
@@ -71,9 +75,6 @@
     mappingBase.extend = mappingBase.fn.extend = function() {
 
     };
-
-    // Set up root value
-    rootMapping = mappingBase();
 
     // Expose mapping to the global object
     window.$mapping = mappingBase;

@@ -18,21 +18,70 @@
             height: 100%;
             width: 100%;
         }
+
+        #map {
+            float: left;
+            width: 80%;
+        }
+
+        #panel {
+            float: right;
+            padding: 1em 2%;
+            width: 16%;
+        }
+
+            #panel div {
+                text-align: center;
+            }
+
+        button {
+            padding: 0.5em 1em;
+        }
     </style>
     
     <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script src="/Scripts/Mapping.Base.js"></script>
     <script src="/Scripts/Mapping.Move.js"></script>
     <script>
+
+        var map = null;
+
         $mapping(function() {
-            var map = $mapping().create("map");
-            map.move.right();
-            map.move.left();
+            map = $mapping("map");
         });
+        
+        function moveUp() {
+            map.move.up();
+        }
+        
+        function moveRight() {
+            map.move.right();
+        }
+        
+        function moveLeft() {
+            map.move.left();
+        }
+        
+        function moveDown() {
+            map.move.down();
+        }
     </script>
     
 </head>
 <body>
     <div id="map"></div>
+    <div id="panel">
+        <h1>Panel stuff</h1>
+        <div>            
+            <button onclick="moveUp()">&uarr; Up</button>
+        </div>
+        <div>
+            <button onclick="moveLeft()">&larr; Left</button>
+            <button onclick="moveRight()">Right &rArr;</button>
+        </div>
+        <div>
+            <button onclick="moveDown()">Down &darr;</button>
+        </div>
+    </div>
 </body>
 </html>
