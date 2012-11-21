@@ -47,7 +47,11 @@
         var map = null;
 
         $mapping(function() {
-            map = $mapping("map");
+            map = $mapping("map", {
+                success: function (gMap) {
+                    console.log("New Google Map created.", gMap);
+                }
+            });
         });
         
         function moveUp() {

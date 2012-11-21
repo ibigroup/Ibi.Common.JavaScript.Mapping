@@ -9,21 +9,21 @@
         document = window.document,
         
         // Define a local copy of the mapping base
-        mappingBase = function (selector) {
-            return new mappingBase.fn.init(selector);
+        mappingBase = function (selector, options) {
+            return new mappingBase.fn.init(selector, options);
         };
 
     mappingBase.fn = mappingBase.prototype = {
         constructor: mappingBase,
         
-        init: function (selector) {
+        init: function (selector, options) {
             map = null;
             
-            if (typeof selector === "function") {
+            if (isFunction(selector)) {
                 return this.ready(selector);
             }
-            else if (typeof selector === "string") {
-                return this.create(selector);
+            else if (isString(selector)) {
+                return this.create(selector, options);
             }
 
             return this;
@@ -52,13 +52,20 @@
         },
         
         create: function (containerId, options) {
-            var mapOptions = options || {
-                zoom: 8,
-                center: new google.maps.LatLng(-34.397, 150.644),
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
+            
+            // Set up options
+            var mapOptions = options || {};
+            mapOptions.zoom = mapOptions.zoom || 8;
+            mapOptions.center = mapOptions.center || new google.maps.LatLng(-34.397, 150.644);
+            mapOptions.mapTypeId = mapOptions.mapTypeId || google.maps.MapTypeId.ROADMAP;
 
+            // Create map
             map = new google.maps.Map(document.getElementById(containerId), mapOptions);
+            
+            // Success callback
+            if (isFunction(mapOptions.success)) {
+                mapOptions.success(map);
+            }
 
             return this;
         },
@@ -78,5 +85,18 @@
 
     // Expose mapping to the global object
     window.$mapping = mappingBase;
+    
+    // Helper methods
+    function isFunction(item) {
+        return isType(item, "function");
+    }
+    
+    function isString(item) {
+        return isType(item, "string");
+    }
+    
+    function isType(item, type) {
+        return typeof item === type;
+    }
 
 })(window, google);
