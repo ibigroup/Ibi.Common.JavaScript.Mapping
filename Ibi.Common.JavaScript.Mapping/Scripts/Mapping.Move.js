@@ -1,4 +1,5 @@
 ﻿$mapping.fn.move = (function () {
+    "use strict";
 
     var defaultDistance = 100;
 
@@ -19,12 +20,8 @@
     };
 
     var moveBy = function(distanceX, distanceY) {
-        var map = getMap();
+        var map = $mapping.fn.getMap();
         map.panBy(distanceX, distanceY);
-    };
-
-    var getMap = function() {
-        return $mapping.fn.getMap();
     };
 
     var normaliseDistance = function(distance) {
